@@ -1,5 +1,5 @@
 import core.MapView as MapView
-from core.MapView.download_something import download_map_format_brcd
+from core.download_something import download_map_format_brcd, download_list_of_images_format_brcd, download_image
 import pygame
 
 pygame.init()
@@ -7,8 +7,8 @@ scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 fps = 60
 pygame.mouse.set_visible(0)
-curB = MapView.download_image(".data/cursors/cur1.png")
-curA = MapView.download_image(".data/cursors/cur2.png")
+curB = download_image(".data/cursors/cur1.png")
+curA = download_image(".data/cursors/cur2.png")
 un = True
 
 
@@ -26,12 +26,11 @@ class Constructor(MapView.Board):
         x, y = cell_indexes
         self.board[x][y] = [i for i in range(len(self.cell_color))][(self.board[x][y] + 1) % len(self.cell_color)]
 
-ok = download_map_format_brcd("/home/daniil/h.brcd")[0]
-board = Constructor(len(ok), len(ok[0]), scr, [".data/textures/Slime_texture.png",
-                                  ".data/textures/Seamless_texture.png", ".data/textures/Dirt_texture.png",
-                                  ".data/textures/White_and_brown_texture.png", "#00557f", "#005500"])
+map_data = download_map_format_brcd("/home/daniil/h.brcd")
+tex_data = download_list_of_images_format_brcd("/home/daniil/t.brcd")
+board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0])
 board.set_view(0, 0, 30)
-board.set_terrain(ok)
+board.set_terrain(map_data[0], map_data[1])
 camera = MapView.Camera()
 running = True
 while running:

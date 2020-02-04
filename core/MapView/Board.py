@@ -1,6 +1,6 @@
 import pygame
 import os
-from .download_something import download_image
+from ..download_something import download_image
 
 
 class Board:
@@ -25,7 +25,7 @@ class Board:
 
     def set_view(self, left, top, cell_size):
         """
-        Here, you can set some params to view your game view
+        Here, you can set some params to view
         :param left: margin space from left
         :param top: margin space from top
         :param cell_size: size of one cell on the map
@@ -102,7 +102,7 @@ class Board:
 
     def get_cell(self, mouse_pos):
         """
-        Find triggered cell
+        Find selected cell
         :param mouse_pos: coordinates of mouse position
         :return: indexes of cell (self.board[i][j])
         """
@@ -121,7 +121,7 @@ class Board:
 
     def on_click(self, cell_indexes):
         """
-        Action for triggered cell
+        Action for selected cell
         :param cell_indexes:
         """
         pass
@@ -137,7 +137,7 @@ class Board:
 
     def set_cell_color(self, colors):
         """
-        This functions sets colors or textures for cells
+        This function sets color or texture for cell
         :return: list of images and colors
         :param colors: list of colors or paths
         """
@@ -151,3 +151,5 @@ class Board:
 
     def set_terrain(self, board, level_of_terrain=None):
         self.board = board
+        if level_of_terrain:
+            self.level_of_terrain = level_of_terrain
