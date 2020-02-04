@@ -1,3 +1,3 @@
 from .Board import Board
 from .Camera import Camera
-from .download_image import download_image
+from .download_something import download_image

@@ -1,4 +1,5 @@
 import core.MapView as MapView
+from core.MapView.download_something import download_map_format_brcd
 import pygame
 
 pygame.init()
@@ -21,42 +22,42 @@ def cursor(scr, x, y, yn):
 
 
 class Constructor(MapView.Board):
-    def on_click(self, cell_coords):
-        x, y = cell_coords
+    def on_click(self, cell_indexes):
+        x, y = cell_indexes
         self.board[x][y] = [i for i in range(len(self.cell_color))][(self.board[x][y] + 1) % len(self.cell_color)]
 
-
-board = Constructor(100, 100, scr, [0, ".data/textures/Dirt_texture.png",
-                                    ".data/textures/Slime_texture.png",
-                                    ".data/textures/White_and_brown_texture.png", "#00557f", "#005500"])
+ok = download_map_format_brcd("/home/daniil/h.brcd")[0]
+board = Constructor(len(ok), len(ok[0]), scr, [".data/textures/Slime_texture.png",
+                                  ".data/textures/Seamless_texture.png", ".data/textures/Dirt_texture.png",
+                                  ".data/textures/White_and_brown_texture.png", "#00557f", "#005500"])
 board.set_view(0, 0, 30)
+board.set_terrain(ok)
 camera = MapView.Camera()
 running = True
 while running:
-
+    x, y = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.MOUSEBUTTONUP and event.button == 3:
-            un = not un
         elif event.type == pygame.MOUSEBUTTONUP:
-            board.get_click(event.pos)
+            if event.button == 3:
+                un = not un
+            elif event.button == 4 or event.button == 5:
+                camera.set_scale(event)
+            else:
+                board.get_click(event.pos)
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                camera.update(3)
-            elif event.key == pygame.K_DOWN:
-                camera.update(4)
-            elif event.key == pygame.K_LEFT:
-                camera.update(1)
-            elif event.key == pygame.K_UP:
-                camera.update(2)
+            camera.check_event(event)
         elif event.type == pygame.KEYUP and event.key in [pygame.K_UP, pygame.K_DOWN, pygame.K_RIGHT, pygame.K_LEFT]:
             camera.set_steps(0, 0)
-
+        elif event.type == pygame.KEYUP and event.key == pygame.K_q:
+            cell = board.get_cell((x, y))
+            if cell:
+                k, v = cell
+                board.level_of_terrain[k][v] += 1
     camera.apply(board)
     clock.tick(fps)
     scr.fill((0, 0, 0))
     board.render()
-    x, y = pygame.mouse.get_pos()
     cursor(scr, x - 10, y - 5, un)
     pygame.display.flip()
