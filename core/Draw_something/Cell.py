@@ -6,7 +6,7 @@ def draw_cell(screen, cell_size, xo, yo, color):
     Draw isometric cell if you have not texture
     :param xo: x coordinate of center
     :param yo: y coordinate of center
-    :param screen: your screen
+    :param screen: using screen
     :param cell_size: size of cell
     :param color: fill colour for cell (just name, for examlpe: '#FF0000' or 'red)
     """
