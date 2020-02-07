@@ -1,5 +1,5 @@
-import pygame
 import os
+from ..Draw_something import Cell
 from ..download_something import download_image
 
 
@@ -43,36 +43,9 @@ class Board:
         """
         xo, yo = x + self.left, y + self.top
         try:
-            self.set_cells_texture(xo, yo, name)
+            Cell.set_cells_texture(self.scr, self.cell_size, xo, yo, name)
         except TypeError:
-            self.draw_cell(xo, yo, name)
-
-    def draw_cell(self, xo, yo, color):
-        """
-        Draw isometric cell if you have not texture
-        :param xo: x coordinate of center
-        :param yo: y coordinate of center
-        :param color: fill colour for cell (just name, for examlpe: '#FF0000' or 'red)
-        """
-        try:
-            pygame.draw.polygon(self.scr, pygame.Color(color),
-                                [[xo - self.cell_size * 2, yo], [xo, yo - self.cell_size],
-                                 [xo + self.cell_size * 2, yo], [xo, yo + self.cell_size]])
-        except ValueError:
-            pygame.draw.polygon(self.scr, pygame.Color("#353535"),
-                                [[xo - self.cell_size * 2, yo], [xo, yo - self.cell_size],
-                                 [xo + self.cell_size * 2, yo], [xo, yo + self.cell_size]], 1)
-
-    def set_cells_texture(self, xo, yo, name):
-        """
-        This function sets texture for cell.
-        Proportion of isometric cell must be - width:height = 2:1
-        :param xo: y coordinate of cell
-        :param yo: x coordinate of cell
-        :param name: name of path
-        """
-        image = pygame.transform.scale(name, (self.cell_size * 4, self.cell_size * 2))
-        self.scr.blit(image, (xo - self.cell_size * 2, yo - self.cell_size))
+            Cell.draw_cell(self.scr, self.cell_size, xo, yo, name)
 
     def render(self):
         """
