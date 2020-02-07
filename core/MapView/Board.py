@@ -22,6 +22,7 @@ class Board:
         self.left = 10
         self.top = 10
         self.cell_size = 30
+        pass
 
     def set_view(self, left, top, cell_size):
         """
