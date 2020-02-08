@@ -23,7 +23,7 @@ def draw_cell(screen, cell_size, xo, yo, color):
 def set_cells_texture(screen, cell_size, xo, yo, name):
     """
     This function sets texture for cell.
-    Proportion of isometric cell must be - width:height = 2:1
+    Proportion of isometric cell must be - width:height = 2:Test_map
     :param xo: y coordinate of cell
     :param yo: x coordinate of cell
     :param name: name of path

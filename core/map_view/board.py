@@ -1,24 +1,25 @@
 import os
-from ..Draw_something import Cell
+from ..draw_something import cell, place_between_levels
 from ..download_something import download_image
 
 
 class Board:
-    def __init__(self, width, height, screen, colors):
+    def __init__(self, width, height, screen, cell_color, place_color):
         """
         Create your board here!
         :param integer width: count of cells in width of board
         :param height: count of cells in height of board
         :param screen: screen of board. Example: scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
-        :param colors: set colors of your cells (it can be path to file)
+        :param cell_color: set colors of your cells (it can be path to file)
         """
         self.width = width
         self.height = height
         self.scr = screen
         self.level_of_terrain = [[0] * height for _ in range(width)]
         self.board = [[0] * height for _ in range(width)]
-        self.cell_color = self.set_cell_color(colors)
-
+        self.cell_color = self.set_cell_color(cell_color)
+        self.place_color = self.set_cell_color(place_color)
+        self.texture_for_place = [[0] * height for _ in range(width)]
         self.left = 10
         self.top = 10
         self.cell_size = 30
@@ -44,9 +45,17 @@ class Board:
         """
         xo, yo = x + self.left, y + self.top
         try:
-            Cell.set_cells_texture(self.scr, self.cell_size, xo, yo, name)
+            cell.set_cells_texture(self.scr, self.cell_size, xo, yo, name)
         except TypeError:
-            Cell.draw_cell(self.scr, self.cell_size, xo, yo, name)
+            cell.draw_cell(self.scr, self.cell_size, xo, yo, name)
+
+    def place_for_one_cell(self, x, y, num_of_levels, name=None):
+        xo, yo = x + self.left, y + self.top
+        for i in range(num_of_levels):
+            try:
+                place_between_levels.set_texture_for_place(self.scr, self.cell_size, xo, y + self.cell_size * i, name)
+            except TypeError:
+                place_between_levels.draw_place(self.scr, self.cell_size, xo, y + self.cell_size * i, name)
 
     def render(self):
         """
@@ -58,6 +67,8 @@ class Board:
                 if x in range(-self.left - self.cell_size * 2, -self.left + 1366 + self.cell_size * 2) and \
                         y - self.cell_size * self.level_of_terrain[i][j] \
                         in range(-self.top - self.cell_size, -self.top + 768 + self.cell_size):
+                    self.place_for_one_cell(x, y - self.cell_size * self.level_of_terrain[i][j],
+                                self.level_of_terrain[i][j], self.place_color[self.texture_for_place[i][j]])
                     self.one_cell(x, y - self.cell_size * self.level_of_terrain[i][j],
                                   self.cell_color[self.board[i][j]])
 
@@ -123,7 +134,10 @@ class Board:
                 lofcol.append(i)
         return lofcol
 
-    def set_terrain(self, board, level_of_terrain=None):
-        self.board = board
+    def set_terrain(self, board=None, level_of_terrain=None, texture_for_place=None):
+        if board:
+            self.board = board
         if level_of_terrain:
             self.level_of_terrain = level_of_terrain
+        if texture_for_place:
+            self.texture_for_place = texture_for_place

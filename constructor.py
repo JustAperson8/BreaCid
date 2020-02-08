@@ -1,37 +1,28 @@
-import core.MapView as MapView
+from core import map_view
 from core.download_something import download_map_format_brcd, download_list_of_images_format_brcd, download_image
+from core.user_interface.cursor import Cursor
 import pygame
 
 pygame.init()
 scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 fps = 60
-pygame.mouse.set_visible(0)
-curB = download_image(".data/cursors/cur1.png")
-curA = download_image(".data/cursors/cur2.png")
+cursor = Cursor(".data/cursors/cur1.png", ".data/cursors/cur2.png")
 un = True
 
 
-def cursor(scr, x, y, yn):
-    if not pygame.mouse.get_focused():
-        return
-    if yn:
-        scr.blit(curB, (x, y))
-    else:
-        scr.blit(curA, (x, y))
-
-
-class Constructor(MapView.Board):
+class Constructor(map_view.Board):
     def on_click(self, cell_indexes):
         x, y = cell_indexes
         self.board[x][y] = [i for i in range(len(self.cell_color))][(self.board[x][y] + 1) % len(self.cell_color)]
 
-map_data = download_map_format_brcd("/home/daniil/h.brcd")
-tex_data = download_list_of_images_format_brcd("/home/daniil/t.brcd")
-board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0])
+
+map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
+tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map/t.brcd")
+board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0], tex_data[1])
 board.set_view(0, 0, 30)
-board.set_terrain(map_data[0], map_data[1])
-camera = MapView.Camera()
+board.set_terrain(map_data[0], map_data[1], map_data[2])
+camera = map_view.Camera()
 running = True
 while running:
     x, y = pygame.mouse.get_pos()
@@ -58,5 +49,6 @@ while running:
     clock.tick(fps)
     scr.fill((0, 0, 0))
     board.render()
-    cursor(scr, x - 10, y - 5, un)
+    cursor.switch_image(un)
+    cursor.render_image(scr, x - 10, y - 5)
     pygame.display.flip()

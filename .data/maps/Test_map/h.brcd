@@ -1,0 +1,35 @@
+// This's just comment
+// You must write date in this format:
+// data
+// title
+// data1
+// title1
+// ...
+// ### is just splitter, text after these symbols doesn't matter
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+### cell_texture
+1 1 1 1 1 1 1 1
+1 1 1 1 1 1 1 1
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+### level_of_terrain
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 0
+0 0 0 0 0 0 0 1
+### texture_for_place 
