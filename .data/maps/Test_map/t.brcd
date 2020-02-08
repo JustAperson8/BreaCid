@@ -1,5 +1,5 @@
 // file of textures
 .data/textures/Seamless_texture.png .data/textures/Dirt_texture.png .data/textures/White_and_brown_texture.png #00557f #005500
 ### for cell
-#623100 blue
+#623100 #005500
 ### for_place

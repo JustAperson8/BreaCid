@@ -29,9 +29,11 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
+            un = False
         elif event.type == pygame.MOUSEBUTTONUP:
             if event.button == 3:
-                un = not un
+                un = True
             elif event.button == 4 or event.button == 5:
                 camera.set_scale(event)
             else:
@@ -45,6 +47,11 @@ while running:
             if cell:
                 k, v = cell
                 board.level_of_terrain[k][v] += 1
+        elif event.type == pygame.KEYUP and event.key == pygame.K_w:
+            cell = board.get_cell((x, y))
+            if cell:
+                k, v = cell
+                board.level_of_terrain[k][v] -= 1
     camera.apply(board)
     clock.tick(fps)
     scr.fill((0, 0, 0))
