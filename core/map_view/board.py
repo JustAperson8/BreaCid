@@ -52,7 +52,7 @@ class Board:
     def place_for_one_cell(self, x, y, num_of_levels, name=None):
         xo, yo = x + self.left, y + self.top
         for i in range(num_of_levels):
-            if yo + self.cell_size * i in range(-self.top - self.cell_size, -self.top + 768 + self.cell_size*2):
+            if y + self.cell_size * i in range(-self.top - self.cell_size*10, -self.top + 768 + self.cell_size*10):
                 try:
                     place_between_levels.set_texture_for_place(self.scr, self.cell_size, xo, yo + self.cell_size * i, name)
                 except TypeError:
@@ -62,10 +62,10 @@ class Board:
         """
         This function draws a board.
         """
-        for i in range(len(self.board)):
-            for j in range(len(self.board[i])):
+        for i in range(self.width):
+            for j in range(self.height):
                 x, y = self.center_of_cell(i, j)
-                if i != len(self.board) - 1 and len(self.board) - 1 != j:
+                if i != self.width - 1 and self.height - 1 != j:
                     if self.level_of_terrain[i][j] > self.level_of_terrain[i][j + 1] or \
                         self.level_of_terrain[i][j] > self.level_of_terrain[i + 1][j]:
                         self.place_for_one_cell(x, y - self.cell_size * self.level_of_terrain[i][j],
