@@ -1,1 +1,1 @@
-from .cell import *
+from core.draw_something.cell import *

@@ -1,6 +1,6 @@
 import os
-from ..draw_something import cell, place_between_levels
-from ..download_something import download_image
+from core.draw_something import cell, place_between_levels
+from core.download_something import download_image
 
 
 class Board:

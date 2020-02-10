@@ -3,3 +3,5 @@
 ### for cell
 #623100 #005500
 ### for_place
+.data/textures/seamless.jpg .data/textures/dirt.jpg .data/textures/white_and_brown_S.jpg #00557f #005500
+### for minimap
