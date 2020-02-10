@@ -1,4 +1,5 @@
 import pygame
+from core.draw_something.useful_isntruments import set_color
 
 
 def draw_cell(screen, cell_size, xo, yo, color):
@@ -10,14 +11,9 @@ def draw_cell(screen, cell_size, xo, yo, color):
     :param cell_size: size of cell
     :param color: fill colour for cell (just name, for examlpe: '#FF0000' or 'red)
     """
-    try:
-        pygame.draw.polygon(screen, pygame.Color(color),
+    pygame.draw.polygon(screen, set_color(color),
                             [[xo - cell_size * 2, yo], [xo, yo - cell_size],
                              [xo + cell_size * 2, yo], [xo, yo + cell_size]])
-    except ValueError:
-        pygame.draw.polygon(screen, pygame.Color("#353535"),
-                            [[xo - cell_size * 2, yo], [xo, yo - cell_size],
-                             [xo + cell_size * 2, yo], [xo, yo + cell_size]], 1)
 
 
 def set_cells_texture(screen, cell_size, xo, yo, name):

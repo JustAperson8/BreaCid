@@ -1,5 +1,5 @@
 import pygame
-from core.draw_something.draw_object import Object_image
+from core.draw_something.object import Object_image
 
 
 class Cursor(Object_image):

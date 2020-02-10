@@ -50,6 +50,13 @@ class Board:
             cell.draw_cell(self.scr, self.cell_size, xo, yo, name)
 
     def place_for_one_cell(self, x, y, num_of_levels, name=None):
+        """
+        Draw place (not stairs)
+        :param x: x of cell
+        :param y: y of cell
+        :param num_of_levels: element of level_of_terrain
+        :param name: name of color or path to texture
+        """
         xo, yo = x + self.left, y + self.top
         for i in range(num_of_levels):
             if y + self.cell_size * i in range(-self.top - self.cell_size*10, -self.top + 768 + self.cell_size*10):
@@ -143,6 +150,12 @@ class Board:
         return lofcol
 
     def set_terrain(self, board=None, level_of_terrain=None, texture_for_place=None):
+        """
+        Set information of terrain here
+        :param board: list of using textures for cells
+        :param level_of_terrain: list of level of terrain
+        :param texture_for_place: list of indexes of list of textures(or colors)
+        """
         if board:
             self.board = board
         if level_of_terrain:

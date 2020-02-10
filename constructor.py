@@ -1,5 +1,5 @@
 from core import map_view
-from core.download_something import download_map_format_brcd, download_list_of_images_format_brcd, download_image
+from core.download_something import download_map_format_brcd, download_list_of_images_format_brcd
 from core.user_interface.cursor import Cursor
 import pygame
 

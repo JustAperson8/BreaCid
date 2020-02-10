@@ -1,15 +1,18 @@
 import pygame
+from core.draw_something.useful_isntruments import set_color
 
 def draw_place(screen, cell_size, x, y, color):
-    try:
-        pygame.draw.polygon(screen, pygame.Color(color),
+    """
+    Draw, if you haven't a texture
+    :param screen: using screen
+    :param cell_size: size of cell(1/2 of height)
+    :param x: x coordinate of place in top middle
+    :param y: y coordinate of place in top middle
+    :param color: using color
+    """
+    pygame.draw.polygon(screen, set_color(color),
                         [[x - cell_size * 2, y], [x, y + cell_size], [x + cell_size * 2, y],
                         [x + cell_size * 2, y + cell_size], [x, y + cell_size * 2], [x - cell_size * 2, y + cell_size]])
-    except ValueError:
-        pygame.draw.polygon(screen, pygame.Color("grey"),
-                            [[x - cell_size * 2, y], [x, y + cell_size], [x + cell_size * 2, y],
-                             [x + cell_size * 2, y + cell_size], [x, y + cell_size * 2],
-                             [x - cell_size * 2, y + cell_size]])
     scr = pygame.Surface((cell_size*2+1, cell_size*2), pygame.SRCALPHA)
     pygame.draw.polygon(scr, pygame.Color(0, 0, 0, 100),
                         [[0, cell_size], [cell_size * 2, 0],
