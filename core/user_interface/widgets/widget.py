@@ -14,6 +14,7 @@ class Widget:
         pass
 
     def update(self, screen):
+        self.surf.fill(self.back_col)
         self.draw_in_widget()
         self.surf.set_alpha(self.trans)
         screen.blit(self.surf, (self.x, self.y))

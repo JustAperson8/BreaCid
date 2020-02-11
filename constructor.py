@@ -1,10 +1,13 @@
 from core import map_view
 from core.download_something import download_map_format_brcd, download_list_of_images_format_brcd
 from core.user_interface.widgets.minimap_widget import Mini_map
+from core.user_interface.widgets.clock import Clock as widget_clock
 from core.user_interface import Cursor
 import pygame
 
 pygame.init()
+MYEVENTTYPE = 30
+pygame.time.set_timer(MYEVENTTYPE, 1000)
 scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 fps = 60
@@ -20,7 +23,8 @@ class Constructor(map_view.Board):
 
 map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
 tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map/t.brcd")
-min_map = Mini_map(0, 750-200, 200, 200, map_data[0], tex_data[2])
+min_map = Mini_map(0, 750 - 200, 200, 200, map_data[0], tex_data[2])
+wc = widget_clock(0, 750 - 224, 100)
 board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0], tex_data[1])
 board.set_view(0, 0, 30)
 board.set_terrain(map_data[0], map_data[1], map_data[2])
@@ -31,6 +35,8 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == MYEVENTTYPE:
+            wc.tick()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             un = False
         elif event.type == pygame.MOUSEBUTTONUP:
@@ -59,6 +65,7 @@ while running:
     scr.fill((0, 0, 0))
     board.render()
     min_map.update(scr)
+    wc.update(scr)
     cursor.switch_image(un)
     cursor.render_image(scr, x - 10, y - 5)
     pygame.display.flip()
