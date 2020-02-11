@@ -1,6 +1,7 @@
 import pygame
 from core.draw_something.useful_isntruments import set_color
 
+
 def draw_cell(screen, width, height, xo, yo, color):
     """
     Draw isometric cell if you have not texture
@@ -12,6 +13,7 @@ def draw_cell(screen, width, height, xo, yo, color):
     """
     pygame.draw.polygon(screen, set_color(color), [[xo, yo], [xo + width, yo],
                                                    [xo + width, yo + height], [xo, yo + height]])
+
 
 def set_cells_texture(screen, width, height, xo, yo, name):
     """
