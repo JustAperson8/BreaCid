@@ -6,12 +6,13 @@ from core.user_interface import Cursor
 import pygame
 
 pygame.init()
+pygame.display.set_icon(pygame.image.load(".data/icon.png"))
 MYEVENTTYPE = 30
 pygame.time.set_timer(MYEVENTTYPE, 1000)
 scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 fps = 60
-cursor = Cursor(".data/cursors/cur1.png", ".data/cursors/cur2.png")
+cursor = Cursor(".data/cursors/cur1.png", ".data/cursors/cur2.png", rect_color="orange")
 un = True
 
 
@@ -24,7 +25,7 @@ class Constructor(map_view.Board):
 map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
 tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map/t.brcd")
 min_map = Mini_map(0, 750 - 200, 200, 200, map_data[0], tex_data[2])
-wc = widget_clock(0, 750 - 224, 100)
+wc = widget_clock(0, 750 - 224, 100, "black", "white")
 board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0], tex_data[1])
 board.set_view(0, 0, 30)
 board.set_terrain(map_data[0], map_data[1], map_data[2])
@@ -32,6 +33,8 @@ camera = map_view.Camera()
 running = True
 while running:
     x, y = pygame.mouse.get_pos()
+    if not un:
+        cursor.hover_rect(1, (x, y))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -39,9 +42,11 @@ while running:
             wc.tick()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             un = False
+            cursor.hover_rect(0, event.pos)
         elif event.type == pygame.MOUSEBUTTONUP:
-            if event.button == 3:
+            if event.button == 3 and not un:
                 un = True
+                print(cursor.hover_rect(2, event.pos))
             elif event.button == 4 or event.button == 5:
                 camera.set_scale(event)
             else:
