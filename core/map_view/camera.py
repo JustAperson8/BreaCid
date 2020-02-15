@@ -6,7 +6,7 @@ class Camera:
         self.dy = 0
         self.scale_left = 0
         self.scale_top = 0
-        self.sensitivity = 8
+        self.sensitivity = 16
         self.scale = 30
 
     def apply(self, obj):

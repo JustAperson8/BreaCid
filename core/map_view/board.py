@@ -59,9 +59,10 @@ class Board:
         """
         xo, yo = x + self.left, y + self.top
         for i in range(num_of_levels):
-            if y + self.cell_size * i in range(-self.top - self.cell_size*10, -self.top + 768 + self.cell_size*10):
+            if y + self.cell_size * i in range(-self.top - self.cell_size * 2, -self.top + 478 + self.cell_size * 2):
                 try:
-                    place_between_levels.set_texture_for_place(self.scr, self.cell_size, xo, yo + self.cell_size * i, name)
+                    place_between_levels.set_texture_for_place(self.scr, self.cell_size, xo, yo + self.cell_size * i,
+                                                               name)
                 except TypeError:
                     place_between_levels.draw_place(self.scr, self.cell_size, xo, yo + self.cell_size * i, name)
 
@@ -74,16 +75,16 @@ class Board:
                 x, y = self.center_of_cell(i, j)
                 if i != self.width - 1 and self.height - 1 != j:
                     if self.level_of_terrain[i][j] > self.level_of_terrain[i][j + 1] or \
-                        self.level_of_terrain[i][j] > self.level_of_terrain[i + 1][j]:
+                            self.level_of_terrain[i][j] > self.level_of_terrain[i + 1][j]:
                         self.place_for_one_cell(x, y - self.cell_size * self.level_of_terrain[i][j],
-                                self.level_of_terrain[i][j], self.place_color[self.texture_for_place[i][j]])
+                                                self.level_of_terrain[i][j],
+                                                self.place_color[self.texture_for_place[i][j]])
                 else:
                     self.place_for_one_cell(x, y - self.cell_size * self.level_of_terrain[i][j],
                                             self.level_of_terrain[i][j], self.place_color[self.texture_for_place[i][j]])
                 if x in range(-self.left - self.cell_size * 2, -self.left + 1366 + self.cell_size * 2) and \
                         y - self.cell_size * self.level_of_terrain[i][j] \
-                        in range(-self.top - self.cell_size, - self.top + 768 + self.cell_size):
-
+                        in range(-self.top - self.cell_size, - self.top + 478 + self.cell_size):
                     self.one_cell(x, y - self.cell_size * self.level_of_terrain[i][j],
                                   self.cell_color[self.board[i][j]])
 

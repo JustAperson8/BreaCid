@@ -2,17 +2,21 @@ from core import map_view
 from core.download_something import download_map_format_brcd, download_list_of_images_format_brcd
 from core.user_interface.widgets.minimap_widget import Mini_map
 from core.user_interface.widgets.clock import Clock as widget_clock
+from core.user_interface.widgets.information_bar import InformationBar
 from core.user_interface import Cursor
+from core.draw_something.object import Object_image
 import pygame
 
 pygame.init()
-pygame.display.set_icon(pygame.image.load(".data/icon.png"))
+pygame.display.set_icon(pygame.image.load(".data/icons/icon.png"))
 MYEVENTTYPE = 30
 pygame.time.set_timer(MYEVENTTYPE, 1000)
 scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
 clock = pygame.time.Clock()
 fps = 60
+res = [0, 0, 0]
 cursor = Cursor(".data/cursors/cur1.png", ".data/cursors/cur2.png", rect_color="orange")
+dock = Object_image("dock.png")
 un = True
 
 
@@ -24,9 +28,12 @@ class Constructor(map_view.Board):
 
 map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
 tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map/t.brcd")
-min_map = Mini_map(0, 750 - 200, 200, 200, map_data[0], tex_data[2])
-wc = widget_clock(0, 750 - 224, 100, "black", "white")
+min_map = Mini_map(0, 750 - 200, 200, 255, map_data[0], tex_data[2])
+min_map.draw_in_widget()
+wc = widget_clock(10, 750 - 260, 255, "black", "#e0a339")
 board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0], tex_data[1])
+ib = InformationBar(1366 - 100 * len(res), 0, [".data/icons/RAM.png", "blue", "orange"], res, transparency=100,
+                    font_color="orange")
 board.set_view(0, 0, 30)
 board.set_terrain(map_data[0], map_data[1], map_data[2])
 camera = map_view.Camera()
@@ -40,6 +47,8 @@ while running:
             running = False
         elif event.type == MYEVENTTYPE:
             wc.tick()
+            wc.draw_in_widget()
+            min_map.draw_in_widget()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
             un = False
             cursor.hover_rect(0, event.pos)
@@ -67,9 +76,12 @@ while running:
                 board.level_of_terrain[k][v] -= 1
     camera.apply(board)
     clock.tick(fps)
-    scr.fill((0, 0, 0))
+    scr.fill((55, 55, 55))
     board.render()
     min_map.update(scr)
+    ib.draw_in_widget()
+    ib.update(scr)
+    dock.render_image(scr, 0, 478)
     wc.update(scr)
     cursor.switch_image(un)
     cursor.render_image(scr, x - 10, y - 5)

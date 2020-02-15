@@ -4,7 +4,7 @@ from core.draw_something.useful_isntruments import set_color
 
 
 class Clock(Widget):
-    def __init__(self, x, y, transparency=255, background_color="black", font_color="green", font_style=None):
+    def __init__(self, x, y, transparency=255, background_color="black", font_color="white", font_style=None):
         super().__init__(x, y, 42, 24, transparency, background_color)
         self.font_color = set_color(font_color)
         self.font_style = font_style

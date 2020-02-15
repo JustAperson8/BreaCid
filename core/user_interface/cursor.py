@@ -27,6 +27,8 @@ class Cursor(Object_image):
             return [x[0], y[0]], [x[1], y[1]]
 
     def render_image(self, scr, x, y):
-        super().render_image(scr, x, y)
         if self.start_pos and self.end_pos and self.rect_pos:
             pygame.draw.rect(scr, set_color(self.rect_color, "green"), self.rect_pos, 1)
+        if pygame.mouse.get_focused():
+            scr.blit(self.ob_images[self.using_cursor], (x, y))
+

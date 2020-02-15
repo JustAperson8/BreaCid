@@ -1,5 +1,6 @@
 import pygame
 
+
 def set_color(color, exception_color="black"):
     try:
         return pygame.Color(color)

@@ -12,8 +12,7 @@ class Object_image:
         self.using_cursor = num
 
     def render_image(self, scr, x, y):
-        if pygame.mouse.get_focused():
-            scr.blit(self.ob_images[self.using_cursor], (x, y))
+        scr.blit(self.ob_images[self.using_cursor], (x, y))
 
     def add_images(self, *names_of_images):
         self.ob_images += list(map(lambda x: download_image(x), names_of_images))

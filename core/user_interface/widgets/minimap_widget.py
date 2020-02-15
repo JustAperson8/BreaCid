@@ -10,6 +10,7 @@ class Mini_map(Widget):
         self.cell_mini_colour = set_cell_color(cell_mini_colour)
 
     def draw_in_widget(self):
+        self.surf.fill(self.back_col)
         for i in range(len(self.board)):
             for j in range(len(self.board[0])):
                 try:
