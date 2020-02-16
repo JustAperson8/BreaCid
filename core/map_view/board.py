@@ -23,7 +23,6 @@ class Board:
         self.left = 10
         self.top = 10
         self.cell_size = 30
-        pass
 
     def set_view(self, left, top, cell_size):
         """
@@ -84,7 +83,7 @@ class Board:
                                             self.level_of_terrain[i][j], self.place_color[self.texture_for_place[i][j]])
                 if x in range(-self.left - self.cell_size * 2, -self.left + 1366 + self.cell_size * 2) and \
                         y - self.cell_size * self.level_of_terrain[i][j] \
-                        in range(-self.top - self.cell_size, - self.top + 478 + self.cell_size):
+                        in range(-self.top - self.cell_size, - self.top + 510 + self.cell_size):
                     self.one_cell(x, y - self.cell_size * self.level_of_terrain[i][j],
                                   self.cell_color[self.board[i][j]])
 
