@@ -41,13 +41,13 @@ class Camera:
             if self.scale - 2 < 20:
                 self.scale = 20
             else:
-                self.scale -= 2
+                self.scale -= 5
                 self.scale_left += 1
                 self.scale_top += 1
         elif event.button == 4:
             if self.scale + 2 > 50:
                 self.scale = 50
             else:
-                self.scale += 2
+                self.scale += 5
                 self.scale_left -= 1
                 self.scale_top -= 1
