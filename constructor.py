@@ -10,9 +10,7 @@ import pygame
 pygame.init()
 pygame.display.set_icon(pygame.image.load(".data/icons/icon.png"))
 MYEVENTTYPE = 30
-pygame.time.set_timer(MYEVENTTYPE, 1000)
 scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
-clock = pygame.time.Clock()
 fps = 60
 res = [0, 0, 0]
 cursor = Cursor(".data/cursors/cur1.png", ".data/cursors/cur2.png", rect_color="orange")
@@ -20,10 +18,11 @@ dock = Object_image("dock.png")
 un = True
 
 
-class Constructor(map_view.Board):
+class Constructor(map_view.GameBoard):
     def on_click(self, cell_indexes):
         x, y = cell_indexes
         self.board[x][y] = [i for i in range(len(self.cell_color))][(self.board[x][y] + 1) % len(self.cell_color)]
+        print(x, y)
 
 
 map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
@@ -36,6 +35,11 @@ ib = InformationBar(1366 - 100 * len(res), 0, [".data/icons/RAM.png", "blue", "o
                     font_color="orange")
 board.set_view(0, 0, 30)
 board.set_terrain(map_data[0], map_data[1], map_data[2])
+board.render()
+pygame.time.set_timer(MYEVENTTYPE, 1000)
+clock = pygame.time.Clock()
+board.cell_size = board.scale_levels[4]
+print(board.cell_size)
 camera = map_view.Camera()
 running = True
 while running:
@@ -76,8 +80,8 @@ while running:
                 board.level_of_terrain[k][v] -= 1
     camera.apply(board)
     clock.tick(fps)
-    scr.fill((55, 55, 55))
-    board.render()
+    scr.fill((50, 50, 50))
+    board.draw(4)
     min_map.update(scr)
     ib.draw_in_widget()
     ib.update(scr)

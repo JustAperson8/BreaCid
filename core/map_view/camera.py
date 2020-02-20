@@ -1,5 +1,6 @@
 import pygame
 
+
 class Camera:
     def __init__(self):
         self.dx = 0
@@ -10,9 +11,9 @@ class Camera:
         self.scale = 30
 
     def apply(self, obj):
-        obj.cell_size = self.scale
-        obj.left += self.dx * 2 + self.scale_left * self.scale
-        obj.top += self.dy + self.scale_top * self.scale
+        # obj.cell_size = self.scale
+        obj.left += self.dx * 2
+        obj.top += self.dy
         self.scale_top, self.scale_left = 0, 0
 
     def set_steps(self, x, y):
