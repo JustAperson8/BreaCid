@@ -1,9 +1,9 @@
 import pygame
-from core.draw_something.object import Object_image
+from core.draw_something.object import ObjectImage
 from core.draw_something.useful_isntruments import set_color
 
 
-class Cursor(Object_image):
+class Cursor(ObjectImage):
     def __init__(self, *names_of_images, rect_color="green"):
         super().__init__(*names_of_images)
         pygame.mouse.set_visible(0)
@@ -30,5 +30,5 @@ class Cursor(Object_image):
         if self.start_pos and self.end_pos and self.rect_pos:
             pygame.draw.rect(scr, set_color(self.rect_color, "green"), self.rect_pos, 1)
         if pygame.mouse.get_focused():
-            scr.blit(self.ob_images[self.using_cursor], (x, y))
+            scr.blit(self.ob_images[self.using_image], (x, y))
 

@@ -12,6 +12,15 @@ class GameBoard(Board):
         self.cells_max = max_cell_size
         self.scale_levels = [i for i in range(min_cell_size, max_cell_size, size_step)]
         self.size_step = size_step
+        self.number_of_surface = 0
+        self.cell_size = min_cell_size
+
+    def set_view(self, left, top, cell_size):
+        super().set_view(left, top, cell_size)
+        if cell_size not in self.scale_levels:
+            self.number_of_surface = -1
+        else:
+            self.number_of_surface = self.scale_levels.index(cell_size)
 
     def center_of_cell_surf(self, ix, iy):
         xz = self.cell_size * self.height * 2
@@ -75,8 +84,8 @@ class GameBoard(Board):
             self.surfaces.append(self.create_terrain_surf())
         self.cell_size = save_cell_size
 
-    def draw(self, num):
-        self.scr.blit(self.surfaces[num], (self.left, self.top))
+    def draw(self):
+        self.scr.blit(self.surfaces[self.number_of_surface], (self.left, self.top))
 
     def get_cell(self, mouse_pos):
         """

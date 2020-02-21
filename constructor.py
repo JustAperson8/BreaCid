@@ -4,17 +4,22 @@ from core.user_interface.widgets.minimap_widget import Mini_map
 from core.user_interface.widgets.clock import Clock as widget_clock
 from core.user_interface.widgets.information_bar import InformationBar
 from core.user_interface import Cursor
-from core.draw_something.object import Object_image
+from core.draw_something.object import ObjectImage
 import pygame
 
 pygame.init()
 pygame.display.set_icon(pygame.image.load(".data/icons/icon.png"))
-MYEVENTTYPE = 30
 scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
+loading_screen = ObjectImage(".data/loading_screen/wallpaper.jpg",
+                             ".data/loading_screen/47.png")
+loading_screen.switch_image(1)
+loading_screen.render_image(scr, 0, 0)
+pygame.display.flip()
+MYEVENTTYPE = 30
 fps = 60
 res = [0, 0, 0]
 cursor = Cursor(".data/cursors/cur1.png", ".data/cursors/cur2.png", rect_color="orange")
-dock = Object_image("dock.png")
+dock = ObjectImage("dock.png")
 un = True
 
 
@@ -33,13 +38,10 @@ wc = widget_clock(10, 750 - 260, 255, "black", "#e0a339")
 board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0], tex_data[1])
 ib = InformationBar(1366 - 100 * len(res), 0, [".data/icons/RAM.png", "blue", "orange"], res, transparency=100,
                     font_color="orange")
-board.set_view(0, 0, 30)
 board.set_terrain(map_data[0], map_data[1], map_data[2])
 board.render()
 pygame.time.set_timer(MYEVENTTYPE, 1000)
 clock = pygame.time.Clock()
-board.cell_size = board.scale_levels[4]
-print(board.cell_size)
 camera = map_view.Camera()
 running = True
 while running:
@@ -80,8 +82,8 @@ while running:
                 board.level_of_terrain[k][v] -= 1
     camera.apply(board)
     clock.tick(fps)
-    scr.fill((50, 50, 50))
-    board.draw(4)
+    scr.fill((0, 0, 0))
+    board.draw()
     min_map.update(scr)
     ib.draw_in_widget()
     ib.update(scr)

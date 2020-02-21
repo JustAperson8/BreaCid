@@ -12,9 +12,7 @@ class Camera:
 
     def apply(self, obj):
         # obj.cell_size = self.scale
-        obj.left += self.dx * 2
-        obj.top += self.dy
-        self.scale_top, self.scale_left = 0, 0
+        obj.set_view(obj.left + self.dx * 2, obj.top + self.dy, self.scale)
 
     def set_steps(self, x, y):
         self.dx, self.dy = x, y
@@ -43,12 +41,8 @@ class Camera:
                 self.scale = 20
             else:
                 self.scale -= 5
-                self.scale_left += 1
-                self.scale_top += 1
         elif event.button == 4:
             if self.scale + 2 > 50:
                 self.scale = 50
             else:
                 self.scale += 5
-                self.scale_left -= 1
-                self.scale_top -= 1

@@ -1,10 +1,10 @@
-def download_map_format_brcd(name):
+def download_map_format_brcd(file):
     """
     Brcd is an txt format
-    :param name: path to file
+    :param file: path to file
     :return: lists
     """
-    f = open(name, encoding="utf-8")
+    f = open(file, encoding="utf-8")
     data = []
     elem = []
     for i in f.readlines():
@@ -26,8 +26,8 @@ def is_correct_map(data):
     return all(list(map(lambda y: y == cel[0], cel)))
 
 
-def download_list_of_images_format_brcd(name):
-    f = open(name)
+def download_list_of_images_format_brcd(file):
+    f = open(file)
     data = []
     elem = []
     for i in f.readlines():

@@ -20,8 +20,8 @@ class Board:
         self.cell_color = self.set_cell_color(cell_color)
         self.place_color = self.set_cell_color(place_color)
         self.texture_for_place = [[0] * height for _ in range(width)]
-        self.left = 10
-        self.top = 10
+        self.left = 0
+        self.top = 0
         self.cell_size = 30
 
     def set_view(self, left, top, cell_size):
