@@ -1,0 +1,7 @@
+// This's list of paths to textures or names of colors
+.data/textures/grass.png .data/textures/Seamless_texture.png .data/textures/Dirt_texture.png .data/textures/White_and_brown_texture.png #00557f #005500
+### for_cell
+#005500 #623100
+### for_place
+.data/textures/dirt.jpg .data/textures/seamless.jpg green .data/textures/white_and_brown_S.jpg #00557f #005500
+### for_minimap

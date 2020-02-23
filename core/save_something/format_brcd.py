@@ -1,9 +1,6 @@
-from core.download_something.format_brcd import download_map_format_brcd
-
-
 def save_map_format_brcd(file, data, titles):
     f = open(file, "w", encoding="UTF-8")
-    f.write("""// This's just comment
+    f.write("""// This's map data
 // You must write date in this format:
 // data
 // title
@@ -12,10 +9,15 @@ def save_map_format_brcd(file, data, titles):
 // ...
 // ### is just splitter, text after these symbols doesn't matter\n""")
     for i in range(len(data)):
-
+        f.write('\n'.join([' '.join([str(x) for x in j]) for j in data[i]]))
         f.write(f"\n### {titles[i]}\n")
     f.close()
 
 
-map_data = download_map_format_brcd("../../.data/maps/Test_map/h.brcd")
-save_map_format_brcd("/home/daniil/h.brcd", map_data, ["cell_texture", "level_of_terrain", "texture_for_place"])
+def save_list_of_images_format_brcd(file, data, titles):
+    f = open(file, "w", encoding="UTF-8")
+    f.write("// This's list of paths to textures or names of colors\n")
+    for i in range(len(data)):
+        f.write(' '.join(data[i]))
+        f.write(f"\n### {titles[i]}\n")
+    f.close()
