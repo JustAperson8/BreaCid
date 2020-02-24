@@ -1,0 +1,6 @@
+<application>
+  <component name="NotificationConfiguration">
+    <notification groupId="Vcs Important Messages" displayType="NONE" />
+    <notification groupId="Vcs Notifications" displayType="NONE" />
+  </component>
+</application>
