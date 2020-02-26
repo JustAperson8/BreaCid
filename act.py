@@ -4,7 +4,7 @@ from core.user_interface.widgets.minimap_widget import Mini_map
 from core.user_interface.widgets.clock import Clock as widget_clock
 from core.user_interface.widgets.information_bar import InformationBar
 from core.user_interface import Cursor
-from core.draw_something.object import ObjectImage
+from core.objects.object_image import ObjectImage
 import pygame
 
 pygame.init()
@@ -31,8 +31,8 @@ class Constructor(map_view.GameBoard):
         print(x, y)
 
 
-map_data = download_map_format_brcd("./.data/maps/Test_map1/h.brcd")
-tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map1/t.brcd")
+map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
+tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map/t.brcd")
 min_map = Mini_map(0, deviceInfo.current_h - 220, 180, 180, map_data[0], tex_data[2])
 min_map.draw_in_widget()
 wc = widget_clock(10, deviceInfo.current_h - 265, 255, "black", "#e0a339")

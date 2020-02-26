@@ -16,7 +16,3 @@ class ObjectImage:
 
     def add_images(self, *names_of_images):
         self.ob_images += list(map(lambda x: download_image(x), names_of_images))
-
-
-class Object_sprite(pygame.sprite.Sprite):
-    pass

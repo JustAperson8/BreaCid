@@ -5,7 +5,7 @@ from core.user_interface.widgets.clock import Clock as widget_clock
 from core.user_interface.widgets.information_bar import InformationBar
 from core.user_interface import Cursor
 from core.save_something.format_brcd import save_map_format_brcd, save_list_of_images_format_brcd
-from core.draw_something.object import ObjectImage
+from core.objects.object_image import ObjectImage
 import pygame
 
 pygame.init()
