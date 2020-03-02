@@ -5,7 +5,7 @@ from core.draw_something import place_between_levels
 
 
 class GameBoard(Board):
-    def __init__(self, width, height, screen, cell_color, place_color, min_cell_size=20, max_cell_size=50, size_step=5):
+    def __init__(self, width, height, screen, cell_color, place_color, min_cell_size=20, max_cell_size=40, size_step=5):
         super().__init__(width, height, screen, cell_color, place_color)
         self.surfaces = []
         self.cell_min = min_cell_size
