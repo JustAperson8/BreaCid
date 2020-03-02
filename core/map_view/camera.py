@@ -1,19 +1,18 @@
 import pygame
 
+
 class Camera:
     def __init__(self):
         self.dx = 0
         self.dy = 0
         self.scale_left = 0
         self.scale_top = 0
-        self.sensitivity = 8
+        self.sensitivity = 16
         self.scale = 30
 
     def apply(self, obj):
-        obj.cell_size = self.scale
-        obj.left += self.dx * 2 + self.scale_left * self.scale
-        obj.top += self.dy + self.scale_top * self.scale
-        self.scale_top, self.scale_left = 0, 0
+        # obj.cell_size = self.scale
+        obj.set_view(obj.left + self.dx * 2, obj.top + self.dy, self.scale)
 
     def set_steps(self, x, y):
         self.dx, self.dy = x, y
@@ -41,13 +40,9 @@ class Camera:
             if self.scale - 2 < 20:
                 self.scale = 20
             else:
-                self.scale -= 2
-                self.scale_left += 1
-                self.scale_top += 1
+                self.scale -= 5
         elif event.button == 4:
             if self.scale + 2 > 50:
                 self.scale = 50
             else:
-                self.scale += 2
-                self.scale_left -= 1
-                self.scale_top -= 1
+                self.scale += 5

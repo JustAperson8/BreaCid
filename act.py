@@ -4,16 +4,20 @@ from core.user_interface.widgets.minimap_widget import Mini_map
 from core.user_interface.widgets.clock import Clock as widget_clock
 from core.user_interface.widgets.information_bar import InformationBar
 from core.user_interface import Cursor
-from core.save_something.format_brcd import save_map_format_brcd, save_list_of_images_format_brcd
 from core.draw_something.object import ObjectImage
 import pygame
 
+# version 0.1
 pygame.init()
+deviceInfo = pygame.display.Info()
 pygame.display.set_icon(pygame.image.load(".data/icons/icon.png"))
-MYEVENTTYPE = 30
-pygame.time.set_timer(MYEVENTTYPE, 1000)
 scr = pygame.display.set_mode((0, 0), pygame.RESIZABLE)
-clock = pygame.time.Clock()
+loading_screen = ObjectImage(".data/loading_screen/wallpaper.jpg",
+                             ".data/loading_screen/47.png")
+loading_screen.switch_image(1)
+loading_screen.render_image(scr, 0, 0)
+pygame.display.flip()
+MYEVENTTYPE = 30
 fps = 60
 res = [0, 0, 0]
 cursor = Cursor(".data/cursors/cur1.png", ".data/cursors/cur2.png", rect_color="orange")
@@ -21,22 +25,26 @@ dock = ObjectImage("dock.png")
 un = True
 
 
-class Constructor(map_view.Board):
+class Constructor(map_view.GameBoard):
     def on_click(self, cell_indexes):
         x, y = cell_indexes
         self.board[x][y] = [i for i in range(len(self.cell_color))][(self.board[x][y] + 1) % len(self.cell_color)]
+        print(x, y)
 
 
-map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
-tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map/t.brcd")
-min_map = Mini_map(0, 750 - 200, 200, 255, map_data[0], tex_data[2])
+map_data = download_map_format_brcd("./.data/maps/Test_map1/h.brcd")
+tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map1/t.brcd")
+min_map = Mini_map(0, deviceInfo.current_h - 220, 180, 180, map_data[0], tex_data[2])
 min_map.draw_in_widget()
-wc = widget_clock(10, 750 - 260, 255, "black", "#e0a339")
+wc = widget_clock(10, deviceInfo.current_h - 265, 255, "black", "#e0a339")
 board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0], tex_data[1])
-ib = InformationBar(1366 - 100 * len(res), 0, [".data/icons/RAM.png", "blue", "orange"], res, transparency=100,
+ib = InformationBar(deviceInfo.current_w - 100 * len(res), 0, [".data/icons/RAM.png", "blue", "orange"], res,
+                    transparency=100,
                     font_color="orange")
-board.set_view(0, 0, 30)
 board.set_terrain(map_data[0], map_data[1], map_data[2])
+board.render()
+pygame.time.set_timer(MYEVENTTYPE, 1000)
+clock = pygame.time.Clock()
 camera = map_view.Camera()
 running = True
 while running:
@@ -75,21 +83,14 @@ while running:
             if cell:
                 k, v = cell
                 board.level_of_terrain[k][v] -= 1
-        elif event.type == pygame.KEYUP and event.key == pygame.K_s:
-            save_map_format_brcd("./.data/maps/Test_map1/h.brcd",
-                                 [board.board, board.level_of_terrain, board.texture_for_place],
-                                 ["board", "level_of_terrain", "texture_for_place"])
-            save_list_of_images_format_brcd("./.data/maps/Test_map1/t.brcd",
-                                            tex_data,
-                                            ["for_cell", "for_place", "for_minimap"])
     camera.apply(board)
     clock.tick(fps)
-    scr.fill((55, 55, 55))
-    board.render()
+    scr.fill((0, 0, 0))
+    board.draw()
     min_map.update(scr)
     ib.draw_in_widget()
     ib.update(scr)
-    dock.render_image(scr, 0, 478)
+    dock.render_image(scr, 0, deviceInfo.current_h - 280)
     wc.update(scr)
     cursor.switch_image(un)
     cursor.render_image(scr, x - 10, y - 5)
