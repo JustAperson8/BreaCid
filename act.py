@@ -7,6 +7,8 @@ from core.user_interface import Cursor
 from core.draw_something.object import ObjectImage
 import pygame
 
+
+# version 0.1
 pygame.init()
 deviceInfo = pygame.display.Info()
 pygame.display.set_icon(pygame.image.load(".data/icons/icon.png"))
