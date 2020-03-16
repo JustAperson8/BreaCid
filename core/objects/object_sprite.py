@@ -43,10 +43,4 @@ class ObjectSprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, *args):
-        if pygame.sprite.spritecollideany(self, hover_group):
-            self.image = self.ob_sprite_images[self.im_group][1]
-        else:
-            self.image = self.ob_sprite_images[self.im_group][0]
-        self.rect = self.rect.move(args[0], args[1])
-        self.set_image_size(args[2]*10, args[2]*5)
-        self.set_rect_size(args[2]*10, args[2]*5)
+        pass

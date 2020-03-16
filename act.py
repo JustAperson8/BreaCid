@@ -32,7 +32,7 @@ un = True
 
 
 class Constructor(map_view.GameBoard):
-    def on_click(self, cell_indexes):
+    def _on_click(self, cell_indexes):
         x, y = cell_indexes
         self.board[x][y] = [i for i in range(len(self.cell_color))][(self.board[x][y] + 1) % len(self.cell_color)]
         print(x, y)
@@ -53,7 +53,7 @@ board.render()
 pygame.time.set_timer(MYEVENTTYPE, 1000)
 clock = pygame.time.Clock()
 camera = map_view.Camera(10, 30, 2)
-pygame.mixer.music.load(".data/sound/Deeb-Bridges.wav")
+pygame.mixer.music.load(".data/sound/Nature_sounds_1.wav")
 pygame.mixer.music.play()
 gg = ObjectSprite(your_army_kernel)
 gg.add_group_of_images(".data/sprites/1.png", type_of_images=-1)

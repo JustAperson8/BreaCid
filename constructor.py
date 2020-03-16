@@ -22,9 +22,22 @@ un = True
 
 
 class Constructor(map_view.Board):
-    def on_click(self, cell_indexes):
+    def _on_click(self, cell_indexes):
         x, y = cell_indexes
         self.board[x][y] = [i for i in range(len(self.cell_color))][(self.board[x][y] + 1) % len(self.cell_color)]
+
+    def get_key(self, cell_coordinates, event):
+        x, y = cell_coordinates
+        cell = board._get_cell((x, y))
+        if cell:
+            if event.key == pygame.K_w:
+                self.up_or_down(cell, 1)
+            elif event.key == pygame.K_q:
+                self.up_or_down(cell, -1)
+
+    def up_or_down(self, cell, step):
+        k, v = cell
+        self.level_of_terrain[k][v] += step
 
 
 map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
@@ -65,16 +78,8 @@ while running:
             camera.check_event(event)
         elif event.type == pygame.KEYUP and event.key in [pygame.K_UP, pygame.K_DOWN, pygame.K_RIGHT, pygame.K_LEFT]:
             camera.set_steps(0, 0)
-        elif event.type == pygame.KEYUP and event.key == pygame.K_q:
-            cell = board.get_cell((x, y))
-            if cell:
-                k, v = cell
-                board.level_of_terrain[k][v] += 1
-        elif event.type == pygame.KEYUP and event.key == pygame.K_w:
-            cell = board.get_cell((x, y))
-            if cell:
-                k, v = cell
-                board.level_of_terrain[k][v] -= 1
+        elif event.type == pygame.KEYUP:
+            board.get_key((x, y), event)
         elif event.type == pygame.KEYUP and event.key == pygame.K_s:
             save_map_format_brcd("./.data/maps/Test_map1/h.brcd",
                                  [board.board, board.level_of_terrain, board.texture_for_place],
