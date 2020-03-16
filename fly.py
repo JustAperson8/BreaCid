@@ -11,7 +11,7 @@ gamer = pygame.sprite.Group()
 pygame.mixer.music.load(".data/sound/Nature_sounds_1.wav")
 # pygame.mixer.music.play()
 # Можно включать, но при тестах бесит звук.
-bird_size_w, bird_size_h = 100, 100
+bird_size_w, bird_size_h = 10, 10
 resources = [0]
 ib = InformationBar(deviceInfo.current_w - 100 * len(resources), 0, ["green"], resources, letter_list=['M'],
                     transparency=100, font_style=".data/fonts/Od.ttf")
@@ -36,13 +36,14 @@ class GamersSprite(ObjectSprite):
         if self._speed < self._end_speed:
             self._speed += self._a
         if self._fly:
-            self.rect = self.rect.move(speed*2.5 - speed, int(-self._speed))
+            self.rect = self.rect.move(speed * 2.5 - speed, int(-self._speed))
         else:
             self.rect = self.rect.move(-speed, int(self._speed * 2))
 
 
 fly = False
-bird = GamersSprite(gamer, acceleration=0.1, end_speed=5)
+lim_x = 100
+bird = GamersSprite(gamer, acceleration=0.5, end_speed=20)
 bird.add_group_of_images(".data/sprites/2.png", type_of_images=-1)
 background = ObjectImage(".data/loading_screen/47.png")
 bird.switch_image(0)
@@ -51,17 +52,19 @@ bird.set_rect_size(bird_size_w, bird_size_h)
 bird.set_pos(100, 100)
 run = True
 start = False
-speed = 1 
+speed = 2
 x = 0
 clock = pygame.time.Clock()
 while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+        if (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1) or (
+                event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE):
             fly = True
             start = True
-        if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+        if (event.type == pygame.MOUSEBUTTONUP and event.button == 1) or (
+                event.type == pygame.KEYUP and event.key == pygame.K_SPACE):
             start = True
             fly = False
     gamer.update(fly, start)

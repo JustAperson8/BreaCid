@@ -40,13 +40,14 @@ class Constructor(map_view.Board):
         self.level_of_terrain[k][v] += step
 
 
+deviceInfo = pygame.display.Info()
 map_data = download_map_format_brcd("./.data/maps/Test_map/h.brcd")
 tex_data = download_list_of_images_format_brcd("./.data/maps/Test_map/t.brcd")
-min_map = Mini_map(0, 750 - 200, 200, 255, map_data[0], tex_data[2])
+min_map = Mini_map(0, deviceInfo.current_h - 200, 200, 255, map_data[0], tex_data[2])
 min_map.draw_in_widget()
-wc = widget_clock(9, 750 - 260, 255, "black", "#e0a339", font_style=".data/fonts/Od.ttf", font_size=16, left=6, top=5)
+wc = widget_clock(10, deviceInfo.current_h - 265, 255, "black", "#e0a339", font_style=".data/fonts/Od.ttf", font_size=16, left=5, top=5)
 board = Constructor(len(map_data[0]), len(map_data[0][0]), scr, tex_data[0], tex_data[1])
-ib = InformationBar(1366 - 100 * len(res), 0, [".data/icons/RAM.png", "blue", "orange"], res, transparency=100,
+ib = InformationBar(deviceInfo.current_w - 100 * len(res), 0, [".data/icons/RAM.png", "blue", "orange"], res, transparency=100,
                     font_color="orange", font_size=16)
 board.set_view(0, 0, 30)
 board.set_terrain(map_data[0], map_data[1], map_data[2])
@@ -94,7 +95,7 @@ while running:
     min_map.update(scr)
     ib.draw_in_widget()
     ib.update(scr)
-    dock.render_image(scr, 0, 478)
+    dock.render_image(scr, 0, deviceInfo.current_h - 280)
     wc.update(scr)
     cursor.switch_image(un)
     cursor.render_image(scr, x - 10, y - 5)
